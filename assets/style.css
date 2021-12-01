@@ -1,0 +1,78 @@
+* {
+    font-family: 'Cinzel', serif;
+}
+
+.orange {
+    color: orangered;
+}
+
+.card-image {
+    width: 250px;
+    height: 250px;    
+}
+
+.restraint {
+    max-width: 350px;
+    max-height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+    background-color: black;
+    color: orangered;
+    border-radius: 20px;
+    border: 2px solid orangered;
+    box-shadow: 3px 3px 7px 0px orangered;
+}
+
+.restraint:hover {
+    background-color: white;
+    color:orangered;
+    box-shadow: 8px 4px 4px 0 black, 8px 4px 12px 8px orangered;
+    border-radius: 20px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+img {
+    border-radius: 0.25rem;
+}
+
+.title {
+    color: orangered;
+}
+
+.subtitle {
+    color: orangered;
+}
+
+a {
+    color: orangered;
+    margin: 0.5rem;
+    padding: 0.5rem;
+}
+
+.move {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    /* margin: 0rem 0.5rem; */
+}
+
+.media-content {
+    overflow: hidden;
+}
+
+nav {
+    height: 75px;
+    border-bottom: 2px solid orangered;
+    border-radius: 0px 0px 10px 10px;
+    box-shadow: 0px 3px 7px 0px orangered;
+}
+
+html {
+    background: url(../images/theHteam.jpg);
+}
