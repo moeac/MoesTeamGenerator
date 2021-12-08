@@ -1,5 +1,7 @@
+const employees = [];
+
 function managerCard(manager) {
-    return `
+    let managerHtml = `
     <div class="card restraint m-4 p-4">
         <div class="card-image">
             <figure class="image">
@@ -25,10 +27,11 @@ function managerCard(manager) {
         </div>
     </div>
     `;
+    employees.push(managerHtml);
 }
 
 function engineerCard(engineer) {
-    return `
+    let engineerHtml = `
     <div class="card restraint m-4 p-4">
         <div class="card-image">
             <figure class="image">
@@ -54,10 +57,11 @@ function engineerCard(engineer) {
         </div>
     </div>
     `;
+    employees.push(engineerHtml);
 }
 
 function internCard(intern) {
-    return `
+    let internHtml = `
     <div class="card restraint m-4 p-4">
         <div class="card-image">
             <figure class="image">
@@ -83,9 +87,10 @@ function internCard(intern) {
         </div>
     </div>
     `;
+    employees.push(internHtml);
 }
 
-function employeePage(employees) {
+function employeePage(team) {
     return  `
     <!DOCTYPE html>
     <html lang="en">
@@ -109,10 +114,38 @@ function employeePage(employees) {
 
         <div class="container">
 
-            ${employees}
+            ${team}
 
         </div>
     </body>
     </html>
     `
 }
+
+function generateCards(employees) {
+
+    const role = employees.getRole();
+
+    if (role === "Manager") {
+        managerCard(manager)
+    }
+
+    if (role === "Engineer") {
+        engineerCard(engineer)
+    }
+
+    if (role === "Intern") {
+        internCard(intern)
+    }
+
+    employeePage(employees);
+}
+
+
+// function x
+// if role = employeeX
+// run generateemployeeX and push to array
+// 
+// run function to generate everything
+
+module.exports = renderHTML;
