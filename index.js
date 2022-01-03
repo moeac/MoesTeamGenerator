@@ -1,14 +1,20 @@
+// imports the goods
 const renderHTML = require('./src/renderHTML');
 
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
+// using inquirer for prompts and clc for node console colours to add a bit of flavour
 const fs = require('fs');
 const inquirer = require('inquirer');
+const clc = require("cli-color");
+let yellow = clc.yellow;
 
+// create empty team array
 const theTeam = [];
 
+// manager questions prompted with inquirer and checks if values are entered before moving on to the next question so the victim cannot escape
 function addManager() {
     return inquirer.prompt (
 
@@ -22,7 +28,7 @@ function addManager() {
                     if (managerName) {
                         return true;
                     } else {
-                        console.log("give me a name pls");
+                        console.log(yellow("\ngive me a name pls"));
                         return false;
                     }
                 }
@@ -32,9 +38,10 @@ function addManager() {
                 name: "id",
                 type: "input",
                 message: "What is the manager's ID?",
+                // validates for a number input
                 validate: managerID => {
-                    if (isNaN(managerID)) {
-                        console.log("I need an ID before ID -stroy your face, im kidding but pls give me an id otherwise we're just gonna loop forever until one of us dies");
+                    if (!/^[0-9]+$/.test(managerID)) {
+                        console.log(yellow("\nplease give me an ID before ID-ecide to swerve my 1999 nissan altima into oncoming traffic"));
                         return false;
                     } else {
                         return true;
@@ -45,14 +52,15 @@ function addManager() {
             {
                 name: 'email',
                 type: 'input',
-                message: "Please give me the manager's email",
+                message: "Please give me the manager's email:",
+                // validates for an email
                 validate: email => {
                     valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
 
                     if (valid) {
                         return true;
                     } else {
-                        console.log("please enter a genuine email before i genuinely hang myself");
+                        console.log(yellow("\nplease enter a genuine email before i genuinely hang myself"));
                         return false;
                     }
                 }
@@ -61,10 +69,10 @@ function addManager() {
             {
                 name: 'officeNumber',
                 type: 'input',
-                message: "And finally please enter the office number",
-                validate: (offNum) => {
-                    if (isNaN(offNum)) {
-                        console.log("pls give me a number to call, it gets lonely sometimes");
+                message: "And finally please enter the office number:",
+                validate: officeNum => {
+                    if (!/^[0-9]+$/.test(officeNum)) {
+                        console.log(yellow("\npls give me a number to call, it gets lonely sometimes"));
                         return false;
                     } else {
                         return true;
@@ -75,16 +83,18 @@ function addManager() {
         ]
 
     )
+    // deconstructs the data received and creates a new manager object and pushes to theTeam array, then runs options()
     .then(managerData => {
         const  { name, id, email, officeNumber } = managerData; 
         const manager = new Manager (name, id, email, officeNumber);
         console.log(manager);
 
         theTeam.push(manager);
-        employeeList();
+        options();
     });
 };
 
+// engineer questions with validations as described above in the manager card
 function addEngineer() {
     return inquirer.prompt(
 
@@ -98,7 +108,7 @@ function addEngineer() {
                     if (engineerName) {
                         return true;
                     } else {
-                        console.log("give me a name pls");
+                        console.log(yellow("\ngive me a name pls"));
                         return false;
                     }
                 }
@@ -109,8 +119,8 @@ function addEngineer() {
                 type: "input",
                 message: "What is the engineer's ID?",
                 validate: engineerID => {
-                    if (isNaN(engineerID)) {
-                        console.log("I need an ID before ID -stroy your face, im kidding but pls give me an id otherwise we're just gonna loop forever until one of us dies");
+                    if (!/^[0-9]+$/.test(engineerID)) {
+                        console.log(yellow("\nplease give me an ID before ID-ecide to swerve my 1999 nissan altima into oncoming traffic"));
                         return false;
                     } else {
                         return true;
@@ -121,14 +131,14 @@ function addEngineer() {
             {
                 name: 'email',
                 type: 'input',
-                message: "Please give me the engineer's email",
+                message: "Please give me the engineer's email:",
                 validate: email => {
                     valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
 
                     if (valid) {
                         return true;
                     } else {
-                        console.log("please enter a genuine email before i genuinely hang myself");
+                        console.log(yellow("\nplease enter a genuine email before i genuinely hang myself"));
                         return false;
                     }
                 }
@@ -137,12 +147,12 @@ function addEngineer() {
             {
                 name: 'gitHub',
                 type: 'input',
-                message: "Please give me the engineer's gitHub username",
+                message: "Please give me the engineer's gitHub username:",
                 validate: gitHubName => {
                     if (gitHubName) {
                         return true;
                     } else {
-                        console.log("give me a github name pls");
+                        console.log(yellow("\ngive me a github name pls"));
                         return false;
                     }
                 }
@@ -156,10 +166,11 @@ function addEngineer() {
             console.log(engineer);
 
             theTeam.push(engineer);
-            employeeList();
+            options();
     });
 };
 
+// intern questions with validations as described above in the manager card
 function addIntern() {
     return inquirer.prompt(
 
@@ -173,7 +184,7 @@ function addIntern() {
                     if (internName) {
                         return true;
                     } else {
-                        console.log("give me a name pls");
+                        console.log(yellow("\ngive me a name pls"));
                         return false;
                     }
                 }
@@ -184,8 +195,8 @@ function addIntern() {
                 type: "input",
                 message: "What is the intern's ID?",
                 validate: internID => {
-                    if (isNaN(internID)) {
-                        console.log("I need an ID before ID -stroy your face, im kidding but pls give me an id otherwise we're just gonna loop forever until one of us dies");
+                    if (!/^[0-9]+$/.test(internID)) {
+                        console.log(yellow("\nplease give me an ID before ID-ecide to swerve my 1999 nissan altima into oncoming traffic"));
                         return false;
                     } else {
                         return true;
@@ -196,14 +207,14 @@ function addIntern() {
             {
                 name: 'email',
                 type: 'input',
-                message: "Please give me the slave's email",
+                message: "Please give me the slave's email:",
                 validate: email => {
                     valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
 
                     if (valid) {
                         return true;
                     } else {
-                        console.log("please enter a genuine email before i genuinely hang myself");
+                        console.log(yellow("\nplease enter a genuine email before i genuinely hang myself"));
                         return false;
                     }
                 }
@@ -217,7 +228,7 @@ function addIntern() {
                     if (schoolName) {
                         return true;
                     } else {
-                        console.log("give me a school name pls");
+                        console.log(yellow("\ngive me a school name pls"));
                         return false;
                     }
                 }
@@ -226,18 +237,18 @@ function addIntern() {
         ]
     )
     .then (internData => {
-            const { name, id, email, gitHub } = internData;
-            const intern = new Intern (name, id, email, gitHub);
+            const { name, id, email, school } = internData;
+            const intern = new Intern (name, id, email, school);
             console.log(intern);
 
             theTeam.push(intern);
-            employeeList();
+            options();
     });
 
 };
         
-
-function employeeList() {
+// options list from inquirer to select what function to run using switch statement
+function options() {
     return inquirer.prompt (
         [
             {
@@ -248,6 +259,7 @@ function employeeList() {
             }
         ]
     )
+    // whatever user selects, run the function
     .then (selected => {
         switch (selected.options) {
             
@@ -258,18 +270,24 @@ function employeeList() {
                 addIntern();
                 break;
             default:
-                generateTeam(theTeam);
+                // renderHTML function which we imported from /src to run through theTeam
+                let data = renderHTML(theTeam);
+                // generates the team file in the /dist folder
+                generateTeamFile(data);
             }
     });
 };
 
-function generateTeam() {
+// generates the file
+function generateTeamFile(data) {
+    console.log(theTeam);
     fs.writeFile("./dist/TheTeam.html", data, (err) => 
-    err ? console.log(err) : console.log("We have generated a 'team'!"));
-}
+    err ? console.log(err) : console.log(yellow("\nWe have generated a 'team'!"))
+)}
 
+// initialise to begin the prompts
 function init() {
-    console.log('alright lets make a team');
+    console.log(yellow("\nAlright lets make a team"));
     addManager();
 }
 
